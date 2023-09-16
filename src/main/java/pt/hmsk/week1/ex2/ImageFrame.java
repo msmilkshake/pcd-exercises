@@ -25,6 +25,7 @@ public class ImageFrame {
 
         handleArgs(args);
 
+        frame.setTitle("Images");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         addFrameConent();
 
@@ -34,10 +35,11 @@ public class ImageFrame {
     }
 
     private void addFrameConent() {
-        imagePlaceholder.setSize(minSize);
         imagePlaceholder.setHorizontalAlignment(JLabel.CENTER);
         imagePlaceholder.setVerticalAlignment(JLabel.CENTER);
-
+        imagePlaceholder.setMinimumSize(minSize);
+        imagePlaceholder.setPreferredSize(minSize);
+        
         frame.setLayout(new BorderLayout(12, 6));
         frame.add(previousBtn, BorderLayout.WEST);
         frame.add(nextBtn, BorderLayout.EAST);
@@ -100,8 +102,8 @@ public class ImageFrame {
         scaleFactor = Math.max(scaleFactor, 1.0 * icon.getIconHeight() / minSize.getHeight());
         Image scaled = icon.getImage()
                 .getScaledInstance(
-                        (int) (icon.getIconWidth() / scaleFactor),
-                        (int) (icon.getIconHeight() / scaleFactor),
+                        (int) (Math.round(icon.getIconWidth() / scaleFactor)),
+                        (int) (Math.round(icon.getIconHeight() / scaleFactor)),
                         Image.SCALE_SMOOTH);
         icon = new ImageIcon(scaled);
         int hgap = (int) (minSize.getWidth() - icon.getIconWidth()) / 2;
