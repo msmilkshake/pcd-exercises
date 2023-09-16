@@ -1,6 +1,5 @@
 package pt.hmsk.week1.ex3;
 
-import javax.security.auth.callback.Callback;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

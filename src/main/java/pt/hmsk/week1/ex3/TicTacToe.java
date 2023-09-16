@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TicTacToe extends Grid {
-    
     private String player = "X";
     public TicTacToe(int length) {
         super("TicTacToe", 3, 3, length);
