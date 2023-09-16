@@ -109,7 +109,7 @@ public class ImageFrame {
         
         // Set the image in the label
         imagePlaceholder.setText(null);
-        imagePlaceholder.setIcon(new ImageIcon(scaled));
+        imagePlaceholder.setIcon(icon);
         imagePlaceholder.setBorder(
                 BorderFactory.createEmptyBorder(vgap, hgap, vgap, hgap));
     }
