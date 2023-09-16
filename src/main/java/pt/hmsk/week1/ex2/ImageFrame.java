@@ -56,7 +56,7 @@ public class ImageFrame {
             updateImage();
         });
 
-        updateBtn.addActionListener(e -> refreshImages());
+        updateBtn.addActionListener(e -> refreshImagesInPath());
     }
 
     public void open() {
@@ -68,10 +68,10 @@ public class ImageFrame {
             throw new RuntimeException("No path to images provided.");
         }
         imagesFolder = args[0];
-        refreshImages();
+        refreshImagesInPath();
     }
 
-    private void refreshImages() {
+    private void refreshImagesInPath() {
         String imgRgx = ".+\\.(?>jpeg|jpg|png|gif|bmp|tif|tiff)\\b";
         images = new File(imagesFolder)
                 .listFiles(pathname ->
