@@ -11,6 +11,7 @@ public class ImageFrame {
     private JButton previousBtn = new JButton("<");
     private JButton nextBtn = new JButton(">");
     private JButton updateBtn = new JButton("update");
+    private JLabel imageName = new JLabel(" ");
     private JLabel imagePlaceholder = new JLabel();
     
     private String imagesFolder;
@@ -38,6 +39,7 @@ public class ImageFrame {
         frame.add(previousBtn, BorderLayout.WEST);
         frame.add(nextBtn, BorderLayout.EAST);
         frame.add(updateBtn, BorderLayout.SOUTH);
+        frame.add(imageName, BorderLayout.NORTH);
         frame.add(imagePlaceholder, BorderLayout.CENTER);
     }
 
@@ -85,6 +87,7 @@ public class ImageFrame {
         if (currentImageIndex < 0 || currentImageIndex >= images.length) {
             imagePlaceholder.setIcon(null);
             imagePlaceholder.setText("Fim das imagens ☹\uFE0F");
+            imageName.setText(" ");
             return;
         }
 
@@ -108,6 +111,7 @@ public class ImageFrame {
         imagePlaceholder.setIcon(icon);
         imagePlaceholder.setBorder(
                 BorderFactory.createEmptyBorder(vgap, hgap, vgap, hgap));
+        imageName.setText(images[currentImageIndex].getName());
     }
 
     public static void main(String[] args) {
