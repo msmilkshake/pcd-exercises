@@ -6,32 +6,26 @@ import java.io.File;
 
 public class ImageFrame {
     private JFrame frame = new JFrame();
-
     private Dimension minSize = new Dimension(320, 240);
 
     private JButton previousBtn = new JButton("<");
     private JButton nextBtn = new JButton(">");
     private JButton updateBtn = new JButton("update");
     private JLabel imagePlaceholder = new JLabel();
-
-
+    
     private String imagesFolder;
     private File[] images;
-
     private int currentImageIndex;
-
-
+    
     public ImageFrame(String[] args) {
-
         handleArgs(args);
 
         frame.setTitle("Images");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
         addFrameConent();
-
-        frame.pack();
-
         registerActions();
+        frame.pack();
     }
 
     private void addFrameConent() {
@@ -39,7 +33,7 @@ public class ImageFrame {
         imagePlaceholder.setVerticalAlignment(JLabel.CENTER);
         imagePlaceholder.setMinimumSize(minSize);
         imagePlaceholder.setPreferredSize(minSize);
-        
+
         frame.setLayout(new BorderLayout(12, 6));
         frame.add(previousBtn, BorderLayout.WEST);
         frame.add(nextBtn, BorderLayout.EAST);
@@ -81,7 +75,7 @@ public class ImageFrame {
         if (images == null) {
             throw new RuntimeException("The provided images path doesn't exist.");
         }
-
+        
         currentImageIndex = images.length > 0 ? 0 : -1;
         updateImage();
     }
@@ -93,7 +87,7 @@ public class ImageFrame {
             imagePlaceholder.setText("Fim das imagens ☹\uFE0F");
             return;
         }
-        
+
         // Load the selected image
         ImageIcon icon = new ImageIcon(images[currentImageIndex].getPath());
 
@@ -108,7 +102,7 @@ public class ImageFrame {
         icon = new ImageIcon(scaled);
         int hgap = (int) (minSize.getWidth() - icon.getIconWidth()) / 2;
         int vgap = (int) (minSize.getHeight() - icon.getIconHeight()) / 2;
-        
+
         // Set the image in the label
         imagePlaceholder.setText(null);
         imagePlaceholder.setIcon(icon);
@@ -119,5 +113,4 @@ public class ImageFrame {
     public static void main(String[] args) {
         new ImageFrame(args).open();
     }
-
 }
