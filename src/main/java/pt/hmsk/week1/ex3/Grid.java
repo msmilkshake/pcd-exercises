@@ -78,6 +78,15 @@ public class Grid {
     public int[] getLastClick() {
         return lastClick;
     }
+    
+    public int getRowDim() {
+        return cells.length;
+    }
+
+    public int cetColDim() {
+        return cells[0].length;
+    }
+    
 
     public JLabel getCell(int row, int col) {
         return cells[row][col];
