@@ -67,7 +67,6 @@ public class GUI {
 
 
     public void open() {
-        // para abrir a janela (torna-la visivel)
         frame.setVisible(true);
     }
 

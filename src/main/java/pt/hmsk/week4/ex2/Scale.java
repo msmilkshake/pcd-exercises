@@ -21,6 +21,7 @@ public class Scale {
         }
         weight += amount;
         display.setText("" + weight);
+        display.repaint();
         notifyAll();
     }
 
@@ -29,6 +30,8 @@ public class Scale {
             wait();
         }
         weight -= amount;
+        display.setText("" + weight);
+        display.repaint();
         notifyAll();
     }
 }

@@ -21,7 +21,7 @@ public class GoldExtractor extends Thread {
         try {
             while (true) {
                 scale.addGold(r.nextDouble());
-                sleep(100);
+//                sleep(100);
             }
         } catch (InterruptedException e) {
             System.out.println(currentThread() + " - Interrupted");
