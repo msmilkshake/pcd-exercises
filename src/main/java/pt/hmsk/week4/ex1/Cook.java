@@ -19,6 +19,13 @@ public class Cook extends Thread {
     public void run() {
         int i = 0;
         try {
+            if (max == 0) {
+                while (true) {
+                    Boar b = new Boar(id, sequence++);
+                    table.put(b);
+                    ++i;
+                }
+            }
             for (; i < max; ++i) {
                 Boar b = new Boar(id, sequence++);
                 // System.out.println(getName() + " cooked " + b);

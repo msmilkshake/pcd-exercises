@@ -17,6 +17,13 @@ public class Eater extends Thread {
     public void run() {
         int i = 0;
         try {
+            if (max == 0) {
+                while (true) {
+                    Boar b = table.take();
+                    System.out.println(b + " [ Consumed by: " + getName() + "]");
+                    ++i;
+                }
+            }
             for (; i < max; ++i) {
                 Boar b = table.take();
                 System.out.println(b + " [ Consumed by: " + getName() + "]");
