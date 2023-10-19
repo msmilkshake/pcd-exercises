@@ -16,8 +16,8 @@ public class Client extends Thread {
 
 	@Override
 	public void run() {
-		List<SongRequest> requests = SongRequest.getRandomListOfSongsRequests(numSongRequests);
-		StringBuilder sb = new StringBuilder(getName() + " Download requests:");
+		List<SongRequest> requests = SongRequest.getRandomListOfSongsRequests(clientId, numSongRequests);
+		StringBuilder sb = new StringBuilder(getName() + " Download request:");
 		for (SongRequest song : requests) {
 			sb.append("\n" + song);
 		}
@@ -26,11 +26,11 @@ public class Client extends Thread {
 		List<SongRequest> downloadedSongs = null;
 		
 		try {
-			downloadedSongs = server.downloadSongs(requests);
+			downloadedSongs = server.downloadSongs(clientId, requests);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-		sb = new StringBuilder(getName() + " Requested song list:");
+		sb = new StringBuilder(getName() + " Result:");
 		for (SongRequest song : downloadedSongs) {
 			sb.append("\n" + song);
 		}

@@ -12,6 +12,7 @@ public class SongRequest {
 	private final String title;
 	private long duration;
 	private byte[] data;
+	private int clientId = -1;
 
 	public SongRequest(String title) {
 		this.title = title;
@@ -35,7 +36,9 @@ public class SongRequest {
 
 	@Override
 	public String toString() {
-		return "SongRequest [title= \"" + title + "\" , duration=" + duration + ", length=" + (data == null ? "null" : data.length) + "]";
+		return "SongRequest [title= \"" + title + "\" , duration=" + duration +
+				", length=" + (data == null ? "null" : data.length) +
+				", requesterID=" + clientId + "]";
 	}
 
 
@@ -49,6 +52,14 @@ public class SongRequest {
 			list.add(song);
 		}
 		return list;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+
+	public int getClientId() {
+		return clientId;
 	}
 
 	@Override
@@ -79,13 +90,14 @@ public class SongRequest {
 		return completeListOfSongs;
 	}
 
-	public static List<SongRequest> getRandomListOfSongsRequests(int numberOfRequests) {
+	public static List<SongRequest> getRandomListOfSongsRequests(int clientId, int numberOfRequests) {
 		List<SongRequest> list = new ArrayList<>();
 
 		for (int i = 0; i != numberOfRequests; i++) {
 			long number = (new Random()).nextInt(MAX_NUM_OF_TITLES) + 1;
 			String title = "Music title number " + number;
 			SongRequest song = new SongRequest(title);
+			song.setClientId(clientId);
 			list.add(song);
 		}
 		return list;

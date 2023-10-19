@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Server {
+	private static int requestNum = 0;
+	
 	private List<Repository> repoList = new LinkedList<>();
 	private List<SongRequest> downloadRequest = null;
 	private List<SongRequest> requestResults = new LinkedList<>();
@@ -27,6 +29,8 @@ public class Server {
 		while (downloadRequest != null) {
 			wait();
 		}
+		int requestNum = Server.requestNum++;
+		System.out.println("[SERVER]: Started serving request #" + requestNum);
 		downloadRequest = songs;
 		requestSize = songs.size();
 		notifyAll();
@@ -35,6 +39,7 @@ public class Server {
 		}
 		List<SongRequest> downloadResults = requestResults;
 		downloadRequest = null;
+		System.out.println("[SERVER]: Completed request #" + requestNum);
 		notifyAll();
 		return downloadResults;
 	}

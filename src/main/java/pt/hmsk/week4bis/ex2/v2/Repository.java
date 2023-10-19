@@ -15,13 +15,19 @@ public class Repository extends Thread {
 
 	@Override
 	public void run() {
+		System.out.println(getName() + " Started!");
         try {
-            SongRequest song = server.getSongRequest();
-			int index = listOfTitles.indexOf(song);
-			server.uploadSong(listOfTitles.get(index));
+			while (true) {
+				SongRequest song = server.getSongRequest();
+				int index = listOfTitles.indexOf(song);
+				SongRequest resultSong =listOfTitles.get(index);
+				resultSong.setClientId(song.getClientId());
+				server.uploadSong(resultSong);
+			}
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+			System.out.println(getName() + " Interrupted!");
         }
+		System.out.println(getName() + " Stopped!");
     }
 
 
