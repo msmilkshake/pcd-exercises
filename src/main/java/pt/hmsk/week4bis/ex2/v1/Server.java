@@ -21,8 +21,6 @@ public class Server {
 		for (Repository repo : repoList) {
 			repo.start();
 		}
-
-		// TODO
 	}
 
 	public synchronized List<SongRequest> downloadSongs(List<SongRequest> songs) throws InterruptedException {
@@ -61,7 +59,6 @@ public class Server {
 		for (Repository repo : repoList) {
 			repo.interrupt();
 		}
-		// TODO
 	}
 
 }

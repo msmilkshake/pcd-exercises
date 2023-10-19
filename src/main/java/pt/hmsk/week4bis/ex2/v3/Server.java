@@ -1,6 +1,9 @@
-package pt.hmsk.week4bis.ex2.v2;
+package pt.hmsk.week4bis.ex2.v3;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Server {
 	private static int requestNum = 0;
@@ -10,13 +13,17 @@ public class Server {
 	private Map<Integer, List<SongRequest>> requestResults = new HashMap<>();
 	private List<SongRequest> requestQueue = new LinkedList<>();
 
-	public Server(int numRepositorios) {
+	public Server(int chunkSize) {
 
-		// Criar e inicia os repositorios
-		for (int i = 0; i != numRepositorios; i++) {
-			Repository repo = new Repository(i, this);
+		// Creates pairs of repositories with #chunkSize musics until the #MAX_NUM_OF_TITLESth song is reached 
+		for (int i = 0, offset = 0; offset < SongRequest.MAX_NUM_OF_TITLES; ++i, offset += chunkSize) {
+			int to = offset + chunkSize;
+			Repository repo = new Repository(i++, this, offset, to);
+			repoList.add(repo);
+			repo = new Repository(i, this, offset, to);
 			repoList.add(repo);
 		}
+		
 		for (Repository repo : repoList) {
 			repo.start();
 		}
@@ -49,6 +56,11 @@ public class Server {
 
 	public synchronized void uploadSong(SongRequest song) {
 		requestResults.get(song.getClientId()).add(song);
+		notifyAll();
+	}
+	
+	public synchronized void reinsertSong(SongRequest song) {
+		requestQueue.add(song);
 		notifyAll();
 	}
 
