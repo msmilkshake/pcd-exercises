@@ -1,4 +1,4 @@
-package pt.hmsk.week4bis.ex2.v1;
+package pt.hmsk.week4bis.ex2.v2;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,19 +24,13 @@ public class Server {
 	}
 
 	public synchronized List<SongRequest> downloadSongs(List<SongRequest> songs) throws InterruptedException {
-		while (downloadRequest != null) {
-			wait();
-		}
 		downloadRequest = songs;
 		requestSize = songs.size();
 		notifyAll();
 		while(requestResults.size() < requestSize) {
 			wait();
 		}
-		List<SongRequest> downloadResults = requestResults;
-		downloadRequest = null;
-		notifyAll();
-		return downloadResults;
+		return requestResults;
 	}
 
 	public synchronized SongRequest getSongRequest() throws InterruptedException {

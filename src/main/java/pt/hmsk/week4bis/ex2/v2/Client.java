@@ -1,6 +1,5 @@
-package pt.hmsk.week4bis.ex2.v1;
+package pt.hmsk.week4bis.ex2.v2;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Client extends Thread {
@@ -18,7 +17,7 @@ public class Client extends Thread {
 	@Override
 	public void run() {
 		List<SongRequest> requests = SongRequest.getRandomListOfSongsRequests(numSongRequests);
-		StringBuilder sb = new StringBuilder(getName() + " Download request:");
+		StringBuilder sb = new StringBuilder(getName() + " Download requests:");
 		for (SongRequest song : requests) {
 			sb.append("\n" + song);
 		}
@@ -31,7 +30,7 @@ public class Client extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-		sb = new StringBuilder(getName() + " Result:");
+		sb = new StringBuilder(getName() + " Requested song list:");
 		for (SongRequest song : downloadedSongs) {
 			sb.append("\n" + song);
 		}

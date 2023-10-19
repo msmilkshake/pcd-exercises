@@ -1,4 +1,4 @@
-package pt.hmsk.week4bis.ex2.v1;
+package pt.hmsk.week4bis.ex2.v2;
 
 import java.util.ArrayList;
 import java.util.List;
