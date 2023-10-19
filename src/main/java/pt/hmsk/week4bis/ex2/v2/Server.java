@@ -8,7 +8,7 @@ public class Server {
 	private List<Repository> repoList = new LinkedList<>();
 	private Map<Integer, Integer> downloadRequestSizes = new HashMap<>();
 	private Map<Integer, List<SongRequest>> requestResults = new HashMap<>();
-	private List<SongRequest> processingQueue = new LinkedList<>();
+	private List<SongRequest> requestQueue = new LinkedList<>();
 
 	public Server(int numRepositorios) {
 
@@ -29,7 +29,7 @@ public class Server {
 		System.out.println("[SERVER]: Started serving request #" + requestNum);
 		downloadRequestSizes.put(clientId, songs.size());
 		requestResults.put(clientId, new LinkedList<>());
-		processingQueue.addAll(songs);
+		requestQueue.addAll(songs);
 		notifyAll();
 		while(requestResults.get(clientId).size() < downloadRequestSizes.get(clientId)) {
 			wait();
@@ -43,10 +43,10 @@ public class Server {
 	}
 
 	public synchronized SongRequest getSongRequest() throws InterruptedException {
-		while (processingQueue.isEmpty()) {
+		while (requestQueue.isEmpty()) {
 			wait();
 		}
-		return processingQueue.remove(0);
+		return requestQueue.remove(0);
 	}
 
 	public synchronized void uploadSong(SongRequest song) {
