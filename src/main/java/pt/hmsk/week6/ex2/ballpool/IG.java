@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class IG {
     ArrayList<Bola> bolas = new ArrayList<>();
-    ThreadPool threadPool = new ThreadPool(4);
+    ExecutorService threadPool = Executors.newFixedThreadPool(4);
 
     public void addContent() {
         JFrame janela = new JFrame("hh");
@@ -27,7 +29,7 @@ public class IG {
         JButton start = getStartButton();
         JButton shutdown = getShutdownButton();
         JButton shutdownNow = getShutdownNowButton();
-        
+
         buttonsPanel.add(start);
         buttonsPanel.add(shutdown);
         buttonsPanel.add(shutdownNow);
@@ -47,7 +49,7 @@ public class IG {
         });
         return shutdown;
     }
-    
+
     private JButton getShutdownNowButton() {
         JButton shutdownNow = new JButton("Shutdown Now");
         shutdownNow.addActionListener(new ActionListener() {
@@ -63,21 +65,14 @@ public class IG {
     private JButton getStartButton() {
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
-            
+
             @Override
-            
+
             public void actionPerformed(ActionEvent e) {
-                // TODO criar ThreadPool. Aqui são simplesmente lançadas as threads.
-                
-                new Thread(() -> {
-                    for (Bola bola : bolas) {
-                        try {
-                            threadPool.submit(bola);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                }).start();
+                // Criar ThreadPool. Aqui são simplesmente lançadas as threads.
+                for (Bola bola : bolas) {
+                    threadPool.submit(bola);
+                }
             }
         });
         return start;
