@@ -41,7 +41,7 @@ public class BlockingQueue<E> {
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return queue.toString();
     }
 }

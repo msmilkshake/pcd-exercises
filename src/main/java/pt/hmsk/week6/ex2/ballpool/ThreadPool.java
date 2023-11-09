@@ -43,7 +43,6 @@ public class ThreadPool {
             throw new InterruptedException("ThreadPool was ordered to shutdown.");
         }
         tasks.put(t);
-        System.out.println(tasks);
     }
     
     public void shutdown() {
