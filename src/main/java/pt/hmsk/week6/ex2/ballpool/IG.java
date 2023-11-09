@@ -63,9 +63,7 @@ public class IG {
     private JButton getStartButton() {
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
-            
             @Override
-            
             public void actionPerformed(ActionEvent e) {
                 // TODO criar ThreadPool. Aqui são simplesmente lançadas as threads.
                 
@@ -86,5 +84,4 @@ public class IG {
     public static void main(String[] args) {
         new IG().addContent();
     }
-
 }

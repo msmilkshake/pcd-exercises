@@ -16,19 +16,15 @@ public class BlockingQueue<E> {
 
     public synchronized void put(E element) throws InterruptedException {
         while (capacity > 0 && queue.size() >= capacity) {
-            System.out.println("[# QUEUE #] The queue is FULL");
             wait();
         }
         queue.add(element);
-        System.out.println("[# QUEUE #] Item:" + element + " was added");
         notifyAll();
     }
 
     public synchronized E take() throws InterruptedException {
         while (queue.isEmpty()) {
-            System.out.println("Trying to take...");
             wait();
-            System.out.println("I was released.");
         }
         E head = queue.poll();
         notifyAll();
