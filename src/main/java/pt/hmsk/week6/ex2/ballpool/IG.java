@@ -5,29 +5,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IG {
     ArrayList<Bola> bolas = new ArrayList<>();
-    ThreadPool threadPool = new ThreadPool(4);
+    ThreadPoolTiago threadPool = new ThreadPoolTiago(6, 10000);
+    private JFrame janela;
 
     public void addContent() {
-        JFrame janela = new JFrame("hh");
+        janela = new JFrame("hh");
         janela.setLayout(new BorderLayout());
-        BallPainter painter = new BallPainter();
-        janela.add(painter, BorderLayout.CENTER);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        for (int i = 0; i < 25; i++) {
-            Bola bola = new Bola();
-            bola.addObserver(painter);
-            bolas.add(bola);
-            painter.addBall(bola);
-        }
         JPanel buttonsPanel = new JPanel(new FlowLayout());
         JButton start = getStartButton();
         JButton shutdown = getShutdownButton();
         JButton shutdownNow = getShutdownNowButton();
-        
+
         buttonsPanel.add(start);
         buttonsPanel.add(shutdown);
         buttonsPanel.add(shutdownNow);
@@ -47,7 +41,7 @@ public class IG {
         });
         return shutdown;
     }
-    
+
     private JButton getShutdownNowButton() {
         JButton shutdownNow = new JButton("Shutdown Now");
         shutdownNow.addActionListener(new ActionListener() {
@@ -61,21 +55,28 @@ public class IG {
     }
 
     private JButton getStartButton() {
-        JButton start = new JButton("Start");
+        JButton start = new JButton("Submit");
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO criar ThreadPool. Aqui são simplesmente lançadas as threads.
-                
-                new Thread(() -> {
-                    for (Bola bola : bolas) {
-                        try {
-                            threadPool.submit(bola);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                }).start();
+
+                List<Bola> localBalls = new ArrayList<>();
+                BallPainter painter = new BallPainter();
+                janela.add(painter, BorderLayout.CENTER);
+
+
+                for (int i = 0; i < 25; i++) {
+                    Bola bola = new Bola();
+                    bola.addObserver(painter);
+                    localBalls.add(bola);
+                    painter.addBall(bola);
+                }
+                janela.setVisible(true);
+
+                for (Bola bola : localBalls) {
+                    threadPool.submit(bola);
+                }
             }
         });
         return start;

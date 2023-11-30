@@ -1,16 +1,16 @@
-package pt.hmsk.week6.ex2.ballpool;
+package pt.hmsk.week6.ex2.tiago;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BlockingQueue<E> {
+public class BlockingQueuePaulo<E> {
     private Queue<E> queue = new LinkedList<>();
     private int capacity = 0;
 
-    public BlockingQueue() {
+    public BlockingQueuePaulo() {
     }
 
-    public BlockingQueue(int capacity) {
+    public BlockingQueuePaulo(int capacity) {
         this.capacity = capacity;
     }
 
